@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000">
+<title>IT 365 Hungary – Menedzselt IT szolgáltatások KKV-knak</title>
+<meta name="description" content="Menedzselt IT szolgáltatások kis- és középvállalkozásoknak és induló cégeknek: felügyelet, Microsoft 365, felhő, biztonság és mentés egy megbízható partnertől.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='6' y1='6' x2='58' y2='58' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23E05CFF'/%3E%3Cstop offset='.5' stop-color='%23B44CFF'/%3E%3Cstop offset='1' stop-color='%234D8DFF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='29' fill='%23050308'/%3E%3Ccircle cx='32' cy='32' r='29' fill='none' stroke='url(%23g)' stroke-width='3'/%3E%3Cpath d='M25 13a19 19 0 1 0 0 38 15 15 0 1 1 0-38Z' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   Design tokens – fekete alap, neon lila és neon kék
+   (a logó és a fejléc színeiből), a gombok is neon lila-kék
+   ========================================================== */
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:dark;
+
+  --bg:#000000;
+  --surface:#08070F;
+  --surface-2:#0E0B1C;
+  --ink:#F3EFFF;
+  --ink-2:#ADA6CE;
+  --line:rgba(178,92,255,.16);
+  --line-strong:rgba(178,92,255,.34);
+
+  --violet:#B44CFF;
+  --magenta:#D24BFF;
+  --blue:#4D8DFF;
+  --cyan:#3CD2FF;
+  --neon-text:#CE7BFF;
+  --blue-text:#7DB4FF;
+  --grad:linear-gradient(120deg,#C84BFF 0%,#4F9BFF 100%);
+
+  --violet-soft:rgba(180,76,255,.12);
+  --violet-line:rgba(196,110,255,.55);
+  --tick:#3a2a5c;
+  --glass:rgba(0,0,0,.74);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.6),0 10px 26px -14px rgba(0,0,0,.9);
+  --shadow-md:0 0 0 1px rgba(180,76,255,.06),0 22px 50px -22px rgba(130,50,235,.45);
+  --shadow-lg:0 34px 80px -30px rgba(130,50,235,.55);
+  --glow:0 0 26px -6px rgba(180,76,255,.65);
+
+  /* Gombok – neon lila / neon kék (ugyanaz a paletta, mint a többi eleme) */
+  --grad-btn:var(--grad);
+  --btn-ink:#07000F;
+
+  --font-display:"Sora",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+
+  --r-sm:10px; --r-md:12px; --r-lg:20px; --r-xl:28px;
+  --gutter:clamp(20px,4vw,40px);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --header-h:72px;
+}
+
+/* ==========================================================
+   Base
+   ========================================================== */
+*,*::before,*::after{box-sizing:border-box}
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+  background:var(--bg);
+  scroll-padding-top:calc(var(--header-h) + 16px + env(safe-area-inset-top,0px));
+}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:1.0625rem;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+::selection{background:rgba(180,76,255,.45);color:#fff}
+h1,h2,h3,h4,p,ul{margin:0}
+ul{padding:0;list-style:none}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;line-height:1.15;text-wrap:balance}
+p{text-wrap:pretty}
+a{color:inherit}
+button{font:inherit;color:inherit}
+img,svg{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+.container{width:min(100% - 2*var(--gutter),1160px);margin-inline:auto}
+.skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--ink);color:#000;padding:10px 16px;border-radius:var(--r-sm);text-decoration:none;transition:top .2s}
+.skip:focus{top:calc(12px + env(safe-area-inset-top,0px))}
+.ic{flex:none}
+
+.section{padding-block:clamp(72px,10vw,128px)}
+.sec-head{max-width:640px;margin-bottom:clamp(36px,5vw,56px)}
+.sec-head h2{font-size:clamp(1.75rem,3.2vw,2.5rem)}
+.sec-head p{margin-top:16px;color:var(--ink-2);max-width:56ch}
+
+/* áramköri "nyomvonal" a címek felett – a fejléc vonalait idézi */
+.sec-head,.about-lead{position:relative;padding-top:30px}
+.sec-head::before,.about-lead::before{
+  content:"";position:absolute;left:0;top:0;width:56px;height:2px;border-radius:2px;
+  background:var(--grad);box-shadow:0 0 12px rgba(180,76,255,.85);
+}
+.sec-head::after,.about-lead::after{
+  content:"";position:absolute;left:56px;top:-4px;width:10px;height:10px;border-radius:50%;
+  border:2px solid var(--blue);background:var(--bg);box-shadow:0 0 12px rgba(77,141,255,.85);
+}
+
+/* ==========================================================
+   Buttons – neon zöld
+   ========================================================== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+  padding:.85rem 1.3rem;border-radius:var(--r-md);
+  font:600 .95rem/1.1 var(--font-body);
+  border:1px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),background-color .2s,border-color .2s,color .2s,filter .2s;
+}
+.btn .ic{width:18px;height:18px;transition:transform .25s var(--ease)}
+.btn-primary{
+  background:var(--grad-btn);color:var(--btn-ink);
+  box-shadow:0 0 22px -6px rgba(180,76,255,.75),inset 0 0 0 1px rgba(255,255,255,.12);
+}
+.btn-primary:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 0 30px -4px rgba(180,76,255,.85),0 0 40px -10px rgba(77,141,255,.8),inset 0 0 0 1px rgba(255,255,255,.18)}
+.btn-primary:active{transform:translateY(0)}
+.btn-ghost{background:rgba(180,76,255,.04);border-color:var(--line-strong);color:var(--ink)}
+.btn-ghost:hover{background:var(--violet-soft);border-color:var(--blue);box-shadow:0 0 22px -8px rgba(77,141,255,.8)}
+.btn-sm{padding:.65rem 1rem;font-size:.9rem}
+.link-btn{background:none;border:0;padding:0;cursor:pointer;font-weight:600;color:var(--neon-text);text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(206,123,255,.45);transition:text-decoration-color .2s,color .2s}
+.link-btn:hover{color:#fff;text-decoration-color:currentColor}
+
+/* ==========================================================
+   Top banner (fejléc-design, beépített SVG-ként)
+   ========================================================== */
+.top-banner{background:#000;position:relative;overflow:hidden}
+.top-banner::after{content:"";display:block;height:1px;background:linear-gradient(90deg,transparent,rgba(200,75,255,.75),rgba(79,155,255,.75),transparent)}
+.top-banner-inner{max-width:1360px;margin-inline:auto;padding-block:clamp(18px,3.2vw,34px)}
+.top-banner-svg{display:block;width:100%;height:auto}
+@media (max-width:700px){
+  .tb-tagline{display:none}
+}
+
+/* ==========================================================
+   Header / navigation
+   ========================================================== */
+.site-header{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:50;
+  border-bottom:1px solid transparent;
+  transition:background-color .3s,border-color .3s,backdrop-filter .3s;
+}
+.site-header::before{
+  content:"";position:absolute;inset-inline:0;bottom:100%;height:env(safe-area-inset-top,0px);
+  background:inherit;-webkit-backdrop-filter:inherit;backdrop-filter:inherit;
+}
+.site-header.is-scrolled,.site-header.is-open{
+  background:var(--glass);
+  -webkit-backdrop-filter:saturate(1.5) blur(14px);backdrop-filter:saturate(1.5) blur(14px);
+  border-bottom-color:var(--line);
+}
+.nav{height:var(--header-h);display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:40px;height:40px;border-radius:50%;object-fit:cover;box-shadow:0 0 18px -4px rgba(180,76,255,.85)}
+.logo-word{font-family:var(--font-display);font-weight:800;font-size:1.35rem;letter-spacing:-.03em;color:var(--ink)}
+.logo-word b{font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a:not(.btn){
+  position:relative;padding:8px 14px;border-radius:var(--r-sm);text-decoration:none;
+  font-size:.95rem;font-weight:500;color:var(--ink-2);transition:color .2s;
+}
+.nav-links a:not(.btn)::after{
+  content:"";position:absolute;left:14px;right:14px;bottom:2px;height:2px;border-radius:2px;
+  background:var(--grad);box-shadow:0 0 10px rgba(180,76,255,.9);
+  transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease);
+}
+.nav-links a:not(.btn):hover{color:var(--ink)}
+.nav-links a[aria-current="true"]{color:var(--ink)}
+.nav-links a[aria-current="true"]::after{transform:scaleX(1)}
+.nav-links .btn{margin-left:12px}
+.burger{
+  display:none;width:44px;height:44px;border:1px solid var(--line-strong);border-radius:var(--r-md);
+  background:var(--surface);cursor:pointer;position:relative;
+}
+.burger span{position:absolute;left:12px;right:12px;height:2px;border-radius:2px;background:var(--ink);transition:transform .3s var(--ease),top .3s var(--ease)}
+.burger span:nth-child(1){top:16px}
+.burger span:nth-child(2){top:25px}
+.site-header.is-open .burger span:nth-child(1){top:20px;transform:rotate(45deg)}
+.site-header.is-open .burger span:nth-child(2){top:20px;transform:rotate(-45deg)}
+
+@media (max-width:880px){
+  .burger{display:block}
+  .nav-links{
+    position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:2px;
+    padding:12px var(--gutter) 20px;background:#05040B;border-bottom:1px solid var(--line-strong);
+    box-shadow:var(--shadow-md);
+    opacity:0;visibility:hidden;transform:translateY(-8px);
+    transition:opacity .25s var(--ease),transform .25s var(--ease),visibility 0s linear .25s;
+  }
+  .site-header.is-open .nav-links{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+  .nav-links a:not(.btn){padding:14px 12px;font-size:1.05rem}
+  .nav-links a:not(.btn)::after{left:12px;right:auto;width:24px;bottom:8px}
+  .nav-links .btn{margin:12px 0 0}
+}
+
+/* ==========================================================
+   Hero
+   ========================================================== */
+.hero{position:relative;isolation:isolate}
+.hero::before{
+  content:"";position:absolute;z-index:-2;inset:0;pointer-events:none;
+  background:
+    radial-gradient(46% 60% at 84% 34%,rgba(180,76,255,.24),transparent 70%),
+    radial-gradient(38% 46% at 6% 92%,rgba(61,139,255,.16),transparent 70%);
+}
+.hero::after{
+  content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(178,92,255,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(178,92,255,.08) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(75% 75% at 68% 42%,#000,transparent 78%);
+  mask-image:radial-gradient(75% 75% at 68% 42%,#000,transparent 78%);
+}
+.hero-grid{
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  align-items:center;gap:clamp(32px,6vw,88px);
+  padding-block:clamp(40px,6vw,88px) clamp(64px,9vw,120px);
+}
+.pill{
+  display:inline-flex;align-items:center;gap:.65rem;padding:.4rem .95rem .4rem .75rem;
+  border:1px solid var(--line-strong);background:rgba(180,76,255,.07);border-radius:999px;
+  font-size:.875rem;color:var(--ink-2);
+}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 4px var(--violet-soft),0 0 12px rgba(180,76,255,.9)}
+.hero h1{
+  margin-top:28px;font-size:clamp(2.35rem,5.2vw,3.9rem);font-weight:700;letter-spacing:-.035em;line-height:1.04;
+  filter:drop-shadow(0 0 22px rgba(180,76,255,.28));
+}
+.grad{
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+}
+.hero-lead{margin-top:24px;max-width:50ch;font-size:clamp(1.05rem,1.4vw,1.2rem);color:var(--ink-2)}
+.hero-actions{margin-top:36px;display:flex;flex-wrap:wrap;gap:12px}
+.stats{
+  margin-top:clamp(40px,6vw,64px);display:grid;grid-template-columns:repeat(3,auto);justify-content:start;
+  gap:0;
+}
+.stat{padding-inline:clamp(16px,2.6vw,32px);border-left:1px solid var(--line-strong)}
+.stat:first-child{padding-left:0;border-left:0}
+.stat b{display:block;font-family:var(--font-display);font-weight:600;font-size:clamp(1.3rem,2.2vw,1.65rem);letter-spacing:-.02em;line-height:1.2}
+.stat span{display:block;margin-top:4px;font-size:.85rem;line-height:1.35;color:var(--ink-2);max-width:17ch}
+
+/* hero visual: 365-napos neon gyűrű + szolgáltatás-csomópontok */
+.ring{position:relative;width:min(100%,500px);aspect-ratio:1;margin-inline:auto}
+.ring svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 0 5px rgba(180,76,255,.5))}
+.tick{stroke:url(#rg);stroke-width:1.6;stroke-linecap:round;--o:.55;animation:tickOn .6s ease-out calc(350ms + var(--i)*3.4ms) both}
+.tick--m{stroke-width:2.6;--o:1}
+@keyframes tickOn{0%{opacity:.06}40%{opacity:1}100%{opacity:var(--o)}}
+.ring-orbit{fill:none;stroke:url(#rg);stroke-opacity:.4;stroke-width:1;stroke-dasharray:2 7;stroke-linecap:round}
+.ring-spoke{stroke:url(#rg);stroke-opacity:.5;stroke-width:1}
+.ring-disc{fill:#000}
+.ring-fade{animation:fadeIn .9s var(--ease) 1.2s both}
+.ring-center{
+  position:absolute;left:50%;top:50%;width:29%;aspect-ratio:1;transform:translate(-50%,-50%);
+  animation:fadeIn .9s var(--ease) .5s both;
+}
+.ring-center svg{display:block;width:100%;height:100%;border-radius:50%;filter:drop-shadow(0 0 20px rgba(180,76,255,.65)) drop-shadow(0 0 38px rgba(77,141,255,.4))}
+.chip{
+  position:absolute;transform:translate(-50%,-50%);
+  display:inline-flex;align-items:center;gap:7px;padding:7px 12px 7px 10px;
+  background:rgba(8,6,16,.92);border:1px solid var(--violet-line);border-radius:999px;box-shadow:0 0 20px -6px rgba(180,76,255,.7);
+  font-size:clamp(.68rem,1.9vw,.82rem);font-weight:500;white-space:nowrap;cursor:pointer;color:var(--ink);
+  animation:chipIn .6s var(--ease) calc(1.35s + var(--k)*90ms) both;
+  transition:border-color .2s,box-shadow .25s var(--ease),background-color .2s;
+}
+.chip .dot{width:6px;height:6px;box-shadow:0 0 0 3px var(--violet-soft),0 0 10px rgba(180,76,255,.9)}
+.chip:hover{border-color:var(--blue);box-shadow:0 0 26px -4px rgba(77,141,255,.85);background:rgba(14,10,30,.95)}
+@keyframes chipIn{from{opacity:0;transform:translate(-50%,-50%) scale(.85)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero [data-load]{animation:rise .8s var(--ease) calc(var(--l,0)*110ms) both}
+
+@media (max-width:880px){
+  .hero-grid{grid-template-columns:1fr}
+  .ring{width:min(100%,400px);margin-top:8px}
+  .stats{grid-template-columns:repeat(3,1fr);justify-content:stretch}
+  .stat{padding-inline:12px}
+}
+@media (max-width:480px){
+  .hero-actions .btn{flex:1 1 100%}
+  .stat span{font-size:.78rem}
+}
+
+/* ==========================================================
+   Services – accordion cards
+   ========================================================== */
+.svc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
+.svc-item{min-width:0}
+.svc{
+  position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);overflow:hidden;
+  transition:border-color .25s,box-shadow .35s var(--ease);
+}
+.svc::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;
+  background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),rgba(180,76,255,.16),transparent 65%);
+  transition:opacity .3s;
+}
+.svc.is-open{border-color:var(--violet-line);box-shadow:var(--shadow-md),var(--glow)}
+.svc.is-open::before{opacity:.7}
+@media (hover:hover){
+  .svc:hover{border-color:var(--violet-line);box-shadow:var(--shadow-md)}
+  .svc:hover::before{opacity:1}
+}
+.svc-head{position:relative;z-index:1;padding:26px 26px 24px}
+.svc-icon{
+  display:grid;place-items:center;width:46px;height:46px;border-radius:var(--r-md);
+  background:var(--violet-soft);color:var(--neon-text);border:1px solid var(--line-strong);
+  transition:transform .35s var(--ease),background .25s,color .25s,box-shadow .25s;
+}
+.svc-icon .ic{width:24px;height:24px}
+.svc:hover .svc-icon,.svc.is-open .svc-icon{background:var(--grad);color:#07000F;border-color:transparent;transform:scale(1.06);box-shadow:0 0 22px -4px rgba(180,76,255,.85)}
+.svc-title{margin-top:20px;font-size:1.2rem;letter-spacing:-.015em}
+.svc-toggle{
+  all:unset;cursor:pointer;display:inline;
+}
+.svc-toggle::after{content:"";position:absolute;inset:0}
+.svc-toggle:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:6px}
+@supports selector(:has(*)){
+  .svc-toggle:focus-visible{outline:none}
+  .svc-head:has(.svc-toggle:focus-visible){outline:2px solid var(--cyan);outline-offset:-3px;border-radius:var(--r-lg)}
+}
+.svc-short{margin-top:10px;color:var(--ink-2);font-size:.98rem;line-height:1.6;max-width:44ch}
+.svc-more{margin-top:20px;display:inline-flex;align-items:center;gap:6px;font-size:.92rem;font-weight:600;color:var(--neon-text)}
+.svc-more .ic{width:18px;height:18px;transition:transform .4s var(--ease)}
+.svc:hover .svc-more .ic{transform:translateY(2px)}
+.svc.is-open .svc-more .ic{transform:rotate(180deg)}
+
+.svc-panel{position:relative;z-index:1;display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.svc-panel-inner{min-height:0;overflow:hidden;visibility:hidden;transition:visibility 0s linear .5s}
+.svc.is-open .svc-panel{grid-template-rows:1fr}
+.svc.is-open .svc-panel-inner{visibility:visible;transition-delay:0s}
+.svc-body{
+  margin-inline:26px;padding:24px 0 26px;border-top:1px solid var(--line);
+  opacity:0;transform:translateY(-6px);transition:opacity .35s var(--ease),transform .45s var(--ease);
+}
+.svc.is-open .svc-body{opacity:1;transform:none;transition-delay:.12s}
+.svc-detail{color:var(--ink);font-size:.98rem;line-height:1.65}
+.svc-cols{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.svc-body h4{font-size:.92rem;letter-spacing:-.005em;margin-bottom:10px}
+.svc-list{display:grid;gap:9px}
+.svc-list li{display:grid;grid-template-columns:18px 1fr;gap:9px;font-size:.92rem;line-height:1.5;color:var(--ink-2)}
+.svc-list .ic{width:18px;height:18px;margin-top:2px;color:var(--blue-text)}
+.svc-problem{margin-top:22px;padding:14px 16px;border-radius:var(--r-md);border-left:2px solid var(--violet);background:var(--surface-2);font-size:.92rem;line-height:1.55;color:var(--ink-2)}
+.svc-problem strong{color:var(--ink);font-weight:600}
+.svc-foot{margin-top:22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.svc-price{font-size:.85rem;line-height:1.5;color:var(--ink-2);max-width:32ch}
+.sec-foot{margin-top:32px;color:var(--ink-2);font-size:.98rem}
+
+@media (max-width:880px){
+  .svc-grid{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  .svc-head{padding:22px 20px 20px}
+  .svc-body{margin-inline:20px}
+  .svc-cols{grid-template-columns:1fr;gap:20px}
+  .svc-foot .btn{width:100%}
+}
+
+/* ==========================================================
+   About (Rólunk)
+   ========================================================== */
+.about{
+  background:
+    radial-gradient(50% 60% at 0% 0%,rgba(180,76,255,.10),transparent 70%),
+    radial-gradient(40% 50% at 100% 100%,rgba(61,139,255,.08),transparent 70%),
+    var(--bg);
+  border-block:1px solid var(--line);
+}
+.about-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(40px,7vw,96px);align-items:start}
+.about-lead{position:sticky;top:calc(var(--header-h) + 40px + env(safe-area-inset-top,0px))}
+.about-lead h2{font-size:clamp(1.75rem,3.2vw,2.5rem)}
+.about-lead p{margin-top:20px;color:var(--ink-2);max-width:42ch}
+.why{border-bottom:1px solid var(--line)}
+.why-item{display:grid;grid-template-columns:44px 1fr;gap:20px;padding:30px 0;border-top:1px solid var(--line)}
+.why-icon{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-strong);color:var(--neon-text);transition:background .3s,color .3s,border-color .3s,box-shadow .3s}
+.why-item:hover .why-icon{background:var(--grad);color:#07000F;border-color:transparent;box-shadow:0 0 22px -4px rgba(180,76,255,.85)}
+.why-icon .ic{width:20px;height:20px}
+.why-item h3{font-size:1.15rem}
+.why-item p{margin-top:8px;color:var(--ink-2);max-width:52ch}
+@media (max-width:880px){
+  .about-grid{grid-template-columns:1fr}
+  .about-lead{position:relative;top:auto}
+}
+
+/* ==========================================================
+   Packages
+   ========================================================== */
+.pkg-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.pkg{
+  position:relative;display:flex;flex-direction:column;height:100%;padding:28px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);overflow:hidden;
+  transition:border-color .25s,box-shadow .35s var(--ease);
+}
+.pkg::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;background:radial-gradient(340px circle at var(--mx,50%) var(--my,0%),rgba(180,76,255,.16),transparent 65%);transition:opacity .3s}
+@media (hover:hover){
+  .pkg:hover{border-color:var(--violet-line);box-shadow:var(--shadow-md),var(--glow)}
+  .pkg:hover::before{opacity:1}
+}
+.pkg>*{position:relative}
+.pkg-top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.pkg h3{font-size:1.3rem;letter-spacing:.01em}
+.lvl{display:flex;align-items:flex-end;gap:4px;height:22px}
+.lvl i{display:block;width:7px;border-radius:3px;background:var(--line-strong)}
+.lvl i:nth-child(1){height:9px}.lvl i:nth-child(2){height:15px}.lvl i:nth-child(3){height:22px}
+.lvl i.on{background:var(--grad);box-shadow:0 0 10px rgba(180,76,255,.85)}
+.pkg-for{margin-top:18px;color:var(--ink-2);font-size:.98rem;flex:1}
+.pkg-note{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);font-size:.85rem;color:var(--ink-2);line-height:1.5}
+.pkg .btn{margin-top:20px;align-self:flex-start}
+@media (max-width:880px){.pkg-grid{grid-template-columns:1fr}}
+
+/* ==========================================================
+   Pricing tables (Árak)
+   ========================================================== */
+.pricing{
+  background:
+    radial-gradient(50% 45% at 100% 0%,rgba(61,139,255,.10),transparent 70%),
+    radial-gradient(45% 45% at 0% 100%,rgba(180,76,255,.09),transparent 70%),
+    var(--bg);
+  border-top:1px solid var(--line);
+}
+.price-block{margin-top:20px}
+.price-block + .price-block{margin-top:44px}
+.price-block h3{font-size:1.1rem;letter-spacing:-.01em}
+.price-block .price-sub{margin-top:6px;font-size:.92rem;color:var(--ink-2);max-width:60ch}
+.table-wrap{margin-top:18px;overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--shadow-sm)}
+table.price-table{width:100%;border-collapse:collapse;min-width:480px;font-size:.94rem}
+table.price-table caption{text-align:left;padding:16px 20px 0;font-size:.85rem;color:var(--ink-2)}
+table.price-table th,table.price-table td{padding:13px 18px;text-align:left;border-bottom:1px solid var(--line)}
+table.price-table thead th{font-family:var(--font-display);font-weight:600;font-size:.82rem;letter-spacing:.03em;text-transform:uppercase;color:var(--neon-text);background:var(--surface-2)}
+table.price-table tbody tr:last-child td{border-bottom:0}
+table.price-table td.num,table.price-table th.num{text-align:right;font-variant-numeric:tabular-nums}
+table.price-table tbody tr.total td{font-weight:700;color:var(--ink);border-top:1px solid var(--line-strong)}
+table.price-table tbody tr.total td.num{color:var(--neon-text)}
+table.price-table tbody tr:hover{background:rgba(180,76,255,.07)}
+.price-note{margin-top:14px;font-size:.85rem;color:var(--ink-2);line-height:1.6}
+.price-or{display:flex;align-items:center;gap:14px;margin:28px 0;color:var(--ink-2);font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
+.price-or::before,.price-or::after{content:"";flex:1;height:1px;background:var(--line-strong)}
+.price-highlight{border-color:var(--violet-line)!important;box-shadow:var(--shadow-md),var(--glow)}
+
+/* ==========================================================
+   Contact / CTA
+   ========================================================== */
+.cta{padding-block:clamp(48px,6vw,72px) clamp(64px,9vw,112px)}
+.cta-panel{
+  position:relative;isolation:isolate;overflow:hidden;color:var(--ink);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,80px);
+  padding:clamp(28px,5.5vw,72px);border-radius:var(--r-xl);
+  border:1px solid transparent;
+  background:
+    radial-gradient(620px 320px at 92% -4%,rgba(180,76,255,.24),transparent 62%) padding-box,
+    radial-gradient(520px 300px at 0% 108%,rgba(61,139,255,.18),transparent 62%) padding-box,
+    linear-gradient(#07050F,#07050F) padding-box,
+    linear-gradient(135deg,rgba(200,75,255,.85),rgba(79,155,255,.85)) border-box;
+  box-shadow:var(--shadow-lg);
+}
+.cta-copy h2{font-size:clamp(1.9rem,3.6vw,2.9rem);color:#fff;letter-spacing:-.03em}
+.cta-copy>p{margin-top:20px;color:#B9B2D9;max-width:44ch}
+.cta-points{margin-top:32px;display:grid;gap:14px}
+.cta-points li{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;color:#DAD4F0;font-size:.98rem}
+.cta-points .ic{width:22px;height:22px;color:var(--blue-text)}
+.cta-mail{margin-top:32px;color:#B9B2D9;font-size:.95rem}
+.cta-mail a{color:#fff;font-weight:600;text-underline-offset:4px;text-decoration-color:rgba(255,255,255,.4)}
+.cta-mail a:hover{text-decoration-color:var(--magenta)}
+.cta-phone{margin-top:8px;color:#B9B2D9;font-size:.95rem}
+.cta-phone a{color:#fff;font-weight:600;text-underline-offset:4px;text-decoration-color:rgba(255,255,255,.4)}
+.cta-phone a:hover{text-decoration-color:var(--magenta)}
+.cta-panel :focus-visible{outline-color:var(--cyan)}
+.form{display:grid;gap:16px;align-content:start}
+.field label{display:block;margin-bottom:7px;font-size:.88rem;font-weight:500;color:#D0C9EC}
+.field input,.field select,.field textarea{
+  width:100%;padding:.8rem 1rem;border-radius:var(--r-md);border:1px solid rgba(196,110,255,.28);
+  background:rgba(255,255,255,.04);color:#fff;font:400 1rem/1.4 var(--font-body);
+  transition:border-color .2s,box-shadow .2s,background-color .2s;
+}
+.field textarea{min-height:104px;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:rgba(255,255,255,.45)}
+.field input:hover,.field select:hover,.field textarea:hover{border-color:rgba(196,110,255,.5)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(77,141,255,.28),0 0 22px -6px rgba(77,141,255,.7);background:rgba(255,255,255,.07)}
+.field select{
+  appearance:none;-webkit-appearance:none;padding-right:2.6rem;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23CE7BFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;
+}
+.field select option{background:#0D0920;color:#fff}
+.form .btn{justify-self:start}
+.form-note{font-size:.82rem;line-height:1.5;color:#A29BC4}
+.form-status{font-size:.9rem;color:#DAD4F0;min-height:1.4em}
+.form-status a{color:#fff}
+@media (max-width:880px){
+  .cta-panel{grid-template-columns:1fr}
+  .form .btn{justify-self:stretch}
+}
+
+/* ==========================================================
+   Footer
+   ========================================================== */
+.site-footer{position:relative;padding-block:clamp(48px,6vw,72px) 32px;background:var(--bg)}
+.site-footer::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,75,255,.75),rgba(79,155,255,.75),transparent)}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1.2fr 1.2fr;gap:clamp(28px,4vw,56px)}
+.foot-brand p{margin-top:16px;color:var(--ink-2);font-size:.95rem;max-width:34ch}
+.site-footer h4{font-size:.95rem;margin-bottom:14px}
+.foot-links{display:grid;gap:9px}
+.foot-links a{font-size:.94rem;color:var(--ink-2);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--violet)}
+.social{margin-top:20px;display:flex;gap:10px}
+.social a{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--line-strong);color:var(--ink-2);transition:color .2s,border-color .2s,background-color .2s,box-shadow .25s}
+.social a:hover{color:var(--ink);border-color:var(--blue);background:var(--violet-soft);box-shadow:0 0 20px -6px rgba(77,141,255,.9)}
+.social .ic{width:18px;height:18px}
+.legal{margin-top:clamp(36px,5vw,56px);padding-top:22px;border-top:1px solid var(--line);font-size:.85rem;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
+.legal a{color:var(--ink-2);text-decoration:none;font-size:.8rem;opacity:.7}
+.legal a:hover{opacity:1;text-decoration:underline}
+@media (max-width:880px){
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .foot-brand{grid-column:1/-1}
+}
+@media (max-width:480px){.foot-grid{grid-template-columns:1fr}}
+
+/* ==========================================================
+   Smart assistant
+   ========================================================== */
+.assist{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:70;display:flex;flex-direction:column;align-items:flex-end}
+.fab{
+  display:inline-flex;align-items:center;gap:12px;padding:8px 20px 8px 8px;border:1px solid var(--violet-line);border-radius:999px;cursor:pointer;
+  background:#0A0814;color:var(--ink);box-shadow:var(--shadow-lg),var(--glow);
+  font-size:.92rem;font-weight:500;
+  transition:padding .4s var(--ease),transform .25s var(--ease),box-shadow .25s,border-color .25s;
+  animation:fabIn .7s var(--ease) 2.2s both;
+}
+.fab:hover{transform:translateY(-2px);border-color:var(--blue)}
+.fab-icon{position:relative;display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;background:var(--grad-btn);color:var(--btn-ink)}
+.fab-icon .ic{width:20px;height:20px;position:absolute;transition:opacity .25s,transform .35s var(--ease)}
+.fab-icon .ic-close{opacity:0;transform:rotate(-60deg) scale(.6)}
+.fab[aria-expanded="true"] .ic-chat{opacity:0;transform:rotate(60deg) scale(.6)}
+.fab[aria-expanded="true"] .ic-close{opacity:1;transform:none}
+.fab-text{display:block;max-width:340px;overflow:hidden;white-space:nowrap;transition:max-width .45s var(--ease),opacity .3s}
+.fab-short{display:none}
+.fab.is-compact{padding-right:8px}
+.fab.is-compact .fab-text{max-width:0;opacity:0;margin-left:-12px}
+@media (hover:hover){
+  .fab.is-compact:hover{padding-right:20px}
+  .fab.is-compact:hover .fab-text{max-width:340px;opacity:1;margin-left:0}
+}
+@keyframes fabIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (max-width:560px){
+  .fab-long{display:none}
+  .fab-short{display:inline}
+}
+.assist-panel{
+  position:absolute;right:0;bottom:calc(100% + 12px);width:min(384px,calc(100vw - 32px));
+  max-height:min(580px,calc(100dvh - 140px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px)));
+  display:flex;flex-direction:column;background:#0A0814;border:1px solid var(--violet-line);border-radius:var(--r-lg);box-shadow:var(--shadow-lg),var(--glow);
+  transform-origin:100% 100%;opacity:0;visibility:hidden;transform:translateY(10px) scale(.96);
+  transition:opacity .25s var(--ease),transform .35s var(--ease),visibility 0s linear .35s;
+}
+.assist.is-open .assist-panel{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.a-head{display:flex;align-items:center;gap:12px;padding:16px 16px 14px 18px;border-bottom:1px solid var(--line)}
+.a-avatar{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--violet-soft);color:var(--neon-text);border:1px solid var(--line-strong);flex:none}
+.a-avatar .ic{width:18px;height:18px}
+.a-titles{flex:1;min-width:0}
+.a-title{font-family:var(--font-display);font-weight:600;font-size:.98rem;letter-spacing:-.01em;line-height:1.25}
+.a-sub{font-size:.8rem;color:var(--ink-2);line-height:1.3;margin-top:2px}
+.a-close{display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:50%;background:transparent;color:var(--ink-2);cursor:pointer;transition:background-color .2s,color .2s}
+.a-close:hover{background:var(--violet-soft);color:var(--ink)}
+.a-close .ic{width:18px;height:18px}
+.a-body{padding:20px 18px 8px;overflow-y:auto;overscroll-behavior:contain}
+.a-step{animation:stepIn .4s var(--ease) both}
+@keyframes stepIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.a-q{font-size:1.12rem;letter-spacing:-.015em;line-height:1.3}
+.a-q:focus{outline:none}
+.a-hint{margin-top:6px;font-size:.88rem;color:var(--ink-2);line-height:1.5}
+.a-opts{margin-top:16px;display:grid;gap:8px}
+.a-opt{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:left;
+  padding:12px 14px;border-radius:var(--r-md);border:1px solid var(--line-strong);background:#050409;
+  font-size:.95rem;line-height:1.4;cursor:pointer;
+  transition:border-color .2s,background-color .2s,transform .25s var(--ease);
+}
+.a-opt .ic{width:16px;height:16px;color:var(--ink-2);transition:transform .25s var(--ease),color .2s}
+.a-opt:hover{border-color:var(--blue);background:var(--violet-soft);transform:translateX(2px)}
+.a-opt:hover .ic{transform:translateX(3px);color:var(--blue-text)}
+.a-tag{font-size:.82rem;font-weight:600;color:var(--neon-text)}
+.a-result h3{margin-top:6px;font-size:1.2rem;letter-spacing:-.02em;line-height:1.25}
+.a-result p{margin-top:10px;font-size:.94rem;line-height:1.6;color:var(--ink-2)}
+.a-actions{margin-top:20px;display:grid;gap:8px}
+.a-actions .btn{width:100%;white-space:normal;text-align:center}
+.a-foot{display:flex;justify-content:space-between;gap:12px;padding:8px 18px 16px;min-height:44px}
+.a-foot button{background:none;border:0;padding:6px 0;font-size:.85rem;color:var(--ink-2);cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line-strong);transition:color .2s}
+.a-foot button:hover{color:var(--ink);text-decoration-color:currentColor}
+body.menu-open .assist{display:none}
+
+/* ==========================================================
+   Scroll reveal
+   ========================================================== */
+.js [data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0ms)}
+.js [data-reveal].in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important;transition-delay:0ms!important}
+  .js [data-reveal]{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#tartalom">Ugrás a tartalomra</a>
+
+<div class="top-banner">
+  <div class="top-banner-inner">
+    <svg class="top-banner-svg" viewBox="0 0 1600 320" role="img" aria-label="IT365 Hungary – Stabil rendszerek az év 365 napján" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="tbGrad" x1="0" y1="0" x2="1600" y2="320" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#E05CFF"/>
+          <stop offset=".5" stop-color="#A45CFF"/>
+          <stop offset="1" stop-color="#3FA2FF"/>
+        </linearGradient>
+        <radialGradient id="tbGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#B44CFF" stop-opacity=".55"/>
+          <stop offset="1" stop-color="#B44CFF" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="tbBlur" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="26"/>
+        </filter>
+      </defs>
+
+      <circle cx="800" cy="160" r="230" fill="url(#tbGlow)" filter="url(#tbBlur)"/>
+
+      <g fill="none" stroke="url(#tbGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".85">
+        <path d="M-10,36 H100 L160,96 H330"/>
+        <path d="M-10,76 H60 L120,136 H290"/>
+        <path d="M-10,116 H130 L190,176 H340"/>
+        <path d="M-10,158 H70 L110,198"/>
+        <path d="M-10,206 H150 L210,266 H360"/>
+        <circle cx="160" cy="96" r="5"/>
+        <circle cx="120" cy="136" r="5"/>
+        <circle cx="190" cy="176" r="5"/>
+        <circle cx="110" cy="198" r="4"/>
+        <circle cx="210" cy="266" r="5"/>
+        <circle cx="330" cy="96" r="3.5" fill="url(#tbGrad)"/>
+        <circle cx="290" cy="136" r="3.5" fill="url(#tbGrad)"/>
+        <circle cx="340" cy="176" r="3.5" fill="url(#tbGrad)"/>
+        <circle cx="360" cy="266" r="3.5" fill="url(#tbGrad)"/>
+      </g>
+      <g fill="none" stroke="url(#tbGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".85" transform="translate(1600,0) scale(-1,1)">
+        <path d="M-10,36 H100 L160,96 H330"/>
+        <path d="M-10,76 H60 L120,136 H290"/>
+        <path d="M-10,116 H130 L190,176 H340"/>
+        <path d="M-10,158 H70 L110,198"/>
+        <path d="M-10,206 H150 L210,266 H360"/>
+        <circle cx="160" cy="96" r="5"/>
+        <circle cx="120" cy="136" r="5"/>
+        <circle cx="190" cy="176" r="5"/>
+        <circle cx="110" cy="198" r="4"/>
+        <circle cx="210" cy="266" r="5"/>
+        <circle cx="330" cy="96" r="3.5" fill="url(#tbGrad)"/>
+        <circle cx="290" cy="136" r="3.5" fill="url(#tbGrad)"/>
+        <circle cx="340" cy="176" r="3.5" fill="url(#tbGrad)"/>
+        <circle cx="360" cy="266" r="3.5" fill="url(#tbGrad)"/>
+      </g>
+
+      <g transform="translate(566,88)">
+        <path d="M70,0a60,60 0 1 0 0,120 48,48 0 1 1 0,-120Z" fill="url(#tbGrad)" opacity=".95"/>
+        <rect x="94" y="4" width="15" height="15" rx="3" fill="url(#tbGrad)"/>
+        <rect x="113" y="20" width="10" height="10" rx="2" fill="url(#tbGrad)" opacity=".85"/>
+        <rect x="84" y="22" width="9" height="9" rx="2" fill="url(#tbGrad)" opacity=".65"/>
+      </g>
+
+      <text x="700" y="182" font-family="Sora, system-ui, sans-serif" font-weight="800" font-size="82" letter-spacing="-1">
+        <tspan fill="url(#tbGrad)">It365</tspan><tspan fill="#F3EFFF" font-weight="600">Hungary</tspan>
+      </text>
+      <text class="tb-tagline" x="800" y="230" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-weight="600" font-size="21" letter-spacing="6" fill="#CE7BFF">STABIL RENDSZEREK AZ ÉV 365 NAPJÁN</text>
+    </svg>
+  </div>
+</div>
+
+<header class="site-header" id="site-header">
+  <div class="container nav">
+    <a class="logo" href="#top" aria-label="IT 365 Hungary – oldal tetejére">
+      <span class="logo-word">IT<b>365</b></span>
+    </a>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü megnyitása"><span></span><span></span></button>
+    <nav class="nav-links" id="site-nav" aria-label="Főmenü">
+      <a href="#szolgaltatasok">Szolgáltatások</a>
+      <a href="#rolunk">Rólunk</a>
+      <a href="#csomagok">Csomagok</a>
+      <a href="#arak">Árak</a>
+      <a href="#kapcsolat">Kapcsolat</a>
+      <a class="btn btn-primary btn-sm" href="#kapcsolat" data-quote="undecided">Kérjen ajánlatot</a>
+    </nav>
+  </div>
+</header>
+
+<main id="tartalom">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="container hero-grid">
+      <div>
+        <span class="pill" data-load style="--l:0"><span class="dot"></span>Menedzselt IT szolgáltatások KKV-knak</span>
+        <h1 data-load style="--l:1">Stabil rendszerek <span class="grad">az év 365 napján.</span></h1>
+        <p class="hero-lead" data-load style="--l:2">Teljes informatikai infrastruktúra kis- és középvállalkozásoknak, valamint induló cégeknek: felügyelet, felhő, biztonság és mentés egy megbízható partnertől.</p>
+        <div class="hero-actions" data-load style="--l:3">
+          <a href="#kapcsolat" class="btn btn-primary" data-quote="undecided">Kérjen ajánlatot <span data-icon="arrow"></span></a>
+          <a href="#csomagok" class="btn btn-ghost">Csomagjaink megtekintése</a>
+        </div>
+        <div class="stats" data-load style="--l:4">
+          <div class="stat"><b>99,99%</b><span>elérhető rendelkezésre állás</span></div>
+          <div class="stat"><b>0–24</b><span>ügyeleti támogatás sürgős esetben</span></div>
+          <div class="stat"><b>1</b><span>megbízható partner a teljes IT-ra</span></div>
+        </div>
+      </div>
+
+      <div class="ring" id="ring" role="group" aria-label="Szolgáltatásaink: válasszon egyet a részletekhez">
+        <svg viewBox="0 0 520 520" aria-hidden="true" id="ring-svg"></svg>
+        <div class="ring-center" role="img" aria-label="IT365 Hungary logó">
+          <svg viewBox="0 0 200 200" width="640" height="640" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="ringLogoGrad" x1="20" y1="20" x2="180" y2="180" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#E05CFF"/>
+                <stop offset=".5" stop-color="#B44CFF"/>
+                <stop offset="1" stop-color="#4D8DFF"/>
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="94" fill="#05040A"/>
+            <circle cx="100" cy="100" r="94" fill="none" stroke="url(#ringLogoGrad)" stroke-width="3"/>
+            <path d="M78 40a60 60 0 1 0 0 120 48 48 0 1 1 0-120Z" fill="url(#ringLogoGrad)" opacity=".9"/>
+            <rect x="132" y="42" width="16" height="16" rx="3" fill="url(#ringLogoGrad)"/>
+            <rect x="152" y="58" width="10" height="10" rx="2" fill="url(#ringLogoGrad)" opacity=".85"/>
+            <rect x="122" y="60" width="9" height="9" rx="2" fill="url(#ringLogoGrad)" opacity=".65"/>
+            <text x="100" y="119" text-anchor="middle" font-family="Sora, system-ui, sans-serif" font-weight="800" font-size="36" fill="url(#ringLogoGrad)">It365</text>
+            <text x="100" y="141" text-anchor="middle" font-family="Sora, system-ui, sans-serif" font-weight="600" font-size="14" letter-spacing="3" fill="#F3EFFF">HUNGARY</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SZOLGÁLTATÁSOK -->
+  <section class="section" id="szolgaltatasok">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <h2>Amiben segítünk</h2>
+        <p>Hat terület, egy felelős partner. Nyissa ki a kártyát a részletekért, vagy kérjen segítséget a választáshoz.</p>
+      </div>
+      <ul class="svc-grid" id="svc-grid" role="list"></ul>
+      <noscript><p class="sec-foot">A szolgáltatások megtekintéséhez engedélyezze a JavaScriptet, vagy kérjen ajánlatot a Kapcsolat résznél.</p></noscript>
+      <p class="sec-foot" data-reveal>Nem biztos benne, melyik illik Önhöz? <button class="link-btn" type="button" data-open-assistant="unsure">Segítünk kiválasztani</button></p>
+    </div>
+  </section>
+
+  <!-- RÓLUNK -->
+  <section class="section about" id="rolunk">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-lead" data-reveal>
+          <h2>Nem óradíjas rendszergazdát ad, hanem egy teljes IT részleget.</h2>
+          <p>Kis- és középvállalkozásoknak, valamint induló cégeknek dolgozunk. Egy partner felel az egész informatikai környezetért, így Önnek nem kell több beszállítót összehangolnia.</p>
+        </div>
+        <div class="why" id="why"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CSOMAGOK -->
+  <section class="section" id="csomagok">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <h2>Válasszon a vállalkozásához illő támogatási szintet</h2>
+        <p>A három csomagot úgy alakítottuk ki, hogy a kisvállalkozásoktól a komplex informatikai környezetet működtető cégekig mindenki megtalálja a megfelelőt.</p>
+      </div>
+      <ul class="pkg-grid" id="pkg-grid" role="list"></ul>
+      <p class="sec-foot" data-reveal>Nem tudja, melyik szint kell? <button class="link-btn" type="button" data-open-assistant="unsure">Kérdezze az asszisztenst</button></p>
+    </div>
+  </section>
+
+  <!-- ÁRAK -->
+  <section class="section pricing" id="arak">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <h2>Áraink</h2>
+        <p>Átlátható díjszabás szerződés nélküli és szerződéses ügyfeleinknek egyaránt. A pontos ajánlatot mindig igényfelmérés után adjuk.</p>
+      </div>
+      <div id="price-blocks"></div>
+    </div>
+  </section>
+
+  <!-- KAPCSOLAT / CTA -->
+  <section class="cta" id="kapcsolat">
+    <div class="container">
+      <div class="cta-panel" data-reveal>
+        <div class="cta-copy">
+          <h2>Beszéljünk vállalkozása informatikájáról</h2>
+          <p>Írja le nekünk informatikai igényét, mi rövid időn belül felvesszük Önnel a kapcsolatot.</p>
+          <ul class="cta-points" role="list">
+            <li><span data-icon="clock"></span>Sürgős esetben 0–24 ügyeleti támogatás</li>
+            <li><span data-icon="layers"></span>Egy partner a teljes informatikai környezetre</li>
+          </ul>
+          <p class="cta-mail">Inkább e-mailben írna? <a id="mail-link" href="#"></a></p>
+          <p class="cta-phone">Hívjon minket: <a id="phone-link-1" href="#"></a> · <a id="phone-link-2" href="#"></a></p>
+        </div>
+        <form class="form" id="quote-form" novalidate>
+          <div class="field">
+            <label for="f-name">Név</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Kovács Anna">
+          </div>
+          <div class="field">
+            <label for="f-email">E-mail-cím</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="anna@cegneve.hu">
+          </div>
+          <div class="field">
+            <label for="f-interest">Mire van szüksége?</label>
+            <select id="f-interest" name="interest"></select>
+          </div>
+          <div class="field">
+            <label for="f-msg">Üzenet (nem kötelező)</label>
+            <textarea id="f-msg" name="message" placeholder="Röviden írja le, mivel segíthetünk."></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Ajánlatkérés küldése <span data-icon="arrow"></span></button>
+          <p class="form-note">A gomb megnyitja az e-mail programját a kitöltött üzenettel.</p>
+          <p class="form-status" id="form-status" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="#top" aria-label="IT 365 Hungary – oldal tetejére">
+          <span class="logo-word">IT<b>365</b></span>
+        </a>
+        <p>Menedzselt IT szolgáltatások kis- és középvállalkozásoknak és induló cégeknek. Stabil rendszerek az év 365 napján.</p>
+        <div class="social" id="social"></div>
+      </div>
+      <div>
+        <h4>Navigáció</h4>
+        <ul class="foot-links" role="list">
+          <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
+          <li><a href="#rolunk">Rólunk</a></li>
+          <li><a href="#csomagok">Csomagok</a></li>
+          <li><a href="#arak">Árak</a></li>
+          <li><a href="#kapcsolat">Kapcsolat</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Szolgáltatások</h4>
+        <ul class="foot-links" id="foot-services" role="list"></ul>
+      </div>
+      <div>
+        <h4>Kapcsolat</h4>
+        <ul class="foot-links" role="list">
+          <li><a id="foot-mail" href="#"></a></li>
+          <li><a id="foot-phone-1" href="#"></a></li>
+          <li><a id="foot-phone-2" href="#"></a></li>
+          <li><a href="#kapcsolat" data-quote="undecided">Ajánlatot kérek</a></li>
+          <li><span style="font-size:.94rem;color:var(--ink-2)">Sürgős esetben 0–24 ügyelet</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal"><span>© 2026 IT 365 Hungary. Minden jog fenntartva.</span><a href="admin.html">Belső – kapcsolati adatok szerkesztése</a></p>
+  </div>
+</footer>
+
+<!-- OKOS ASSZISZTENS -->
+<div class="assist" id="assist">
+  <div class="assist-panel" id="assist-panel" role="dialog" aria-labelledby="assist-title">
+    <div class="a-head">
+      <span class="a-avatar" data-icon="chat"></span>
+      <div class="a-titles">
+        <p class="a-title" id="assist-title">Segítség a választáshoz</p>
+        <p class="a-sub">Pár kattintás, és ajánlunk egy szolgáltatást.</p>
+      </div>
+      <button class="a-close" id="a-close" type="button" aria-label="Asszisztens bezárása"><span data-icon="close"></span></button>
+    </div>
+    <div class="a-body" id="a-body"></div>
+    <div class="a-foot" id="a-foot"></div>
+  </div>
+  <button class="fab" id="fab" type="button" aria-expanded="false" aria-controls="assist-panel">
+    <span class="fab-icon"><span data-icon="chat" data-cls="ic-chat"></span><span data-icon="close" data-cls="ic-close"></span></span>
+    <span class="fab-text"><span class="fab-long">Segíthetek megtalálni a megfelelő szolgáltatást?</span><span class="fab-short">Segítség a választáshoz</span></span>
+  </button>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ========================================================
+     Konfiguráció – alapértékek, amíg a contacts.txt be nem töltődik
+     A tényleges kapcsolati adatokat a contacts.txt fájl tárolja,
+     azt a admin.html oldalon lehet szerkeszteni és GitHub-ra menteni.
+     ======================================================== */
+  var CONFIG = {
+    email: 'petrovicsjozsef85@gmail.com',        // felülíródik a contacts.txt-ből
+    phones: ['+36 30 946 9192', '+36 30 420 4801'], // felülíródik a contacts.txt-ből
+    social: [                                    // TODO: valós profil-URL-ek
+      { name: 'LinkedIn', icon: 'linkedin', url: 'https://www.linkedin.com/' },
+      { name: 'Facebook', icon: 'facebook', url: 'https://www.facebook.com/' }
+    ]
+  };
+
+  /* ========================================================
+     Adatok: új szolgáltatás = új objektum ebben a tömbben
+     ======================================================== */
+  var PRICING = 'Díjazás: a támogatási szinttől és a rendszerek méretétől függ. Ajánlatot igényfelmérés után adunk.';
+
+  var SERVICES = [
+    {
+      id: 'monitoring', icon: 'pulse', chip: 'Felügyelet',
+      name: 'Monitoring és üzemeltetés',
+      short: 'Proaktív felügyelet, amely a hibát még azelőtt észreveszi, hogy megállítaná a munkát.',
+      detail: 'Rendszereit folyamatosan figyeljük, és beavatkozunk, mielőtt a hiba az Önök munkáját akadályozná. A napi üzemeltetést átvesszük, így nem kell saját rendszergazdát alkalmaznia.',
+      includes: ['Folyamatos rendszerfelügyelet', 'Szerverek napi üzemeltetése', 'Karbantartás és frissítések', 'Ügyeleti támogatás sürgős esetben, 0–24'],
+      problem: 'Váratlan leállások és későn észrevett hibák, mert senki nem figyeli a rendszereket.',
+      benefits: ['Kevesebb váratlan leállás', 'Egy felelős partner több beszállító helyett', 'Hétvégén is számíthat ránk sürgős esetben']
+    },
+    {
+      id: 'network', icon: 'network', chip: 'Hálózat',
+      name: 'Szerver és hálózat',
+      short: 'Szerverek, hálózat és a teljes rendszer megtervezése és üzemeltetése egy kézből.',
+      detail: 'A szervertől a munkaállomásokig megtervezzük és felépítjük az informatikai környezetet, majd gondoskodunk az üzemeltetéséről. Induló cégeknek és költözéskor is jó kiindulópont.',
+      includes: ['Teljes rendszertervezés', 'Hálózat kialakítása és üzemeltetése', 'Szerverek telepítése és üzemeltetése', 'Munkaállomások beállítása és támogatása'],
+      problem: 'Idővel összeállt, dokumentálatlan környezet, amely a cég növekedésével egyre nehezebben kezelhető.',
+      benefits: ['Átlátható, jól megtervezett környezet', 'Könnyebben bővíthető rendszer', 'Egy partner felel az egészért']
+    },
+    {
+      id: 'm365', icon: 'grid', chip: 'Microsoft 365',
+      name: 'Microsoft 365',
+      short: 'Modern munkakörnyezet és vállalati levelezés, a bevezetéstől a napi támogatásig.',
+      detail: 'Bevezetjük és beállítjuk a Microsoft 365 környezetet, hogy munkatársai bárhonnan, biztonságosan és egységes felületen dolgozhassanak.',
+      includes: ['Microsoft 365 bevezetése és beállítása', 'Vállalati levelezés', 'Felhasználók és jogosultságok kezelése', 'Áttelepítés a meglévő rendszerből'],
+      problem: 'Szétszórt eszközök és fiókok, nehézkes együttműködés, nem egységes levelezés.',
+      benefits: ['Egységes munkakörnyezet mindenkinek', 'Bárhonnan elérhető levelezés és dokumentumok', 'Központilag kezelt felhasználók']
+    },
+    {
+      id: 'cloud', icon: 'cloud', chip: 'Felhő',
+      name: 'Felhő és VPS',
+      short: 'Azure alapú és VPS megoldások, ha nem szeretne saját szervert fenntartani.',
+      detail: 'Segítünk eldönteni, mi kerüljön felhőbe, és megvalósítjuk az Azure alapú vagy VPS megoldást.',
+      includes: ['Azure alapú felhőmegoldások', 'VPS szolgáltatás', 'Áttelepítés a felhőbe', 'Kapacitás és költségek tervezése'],
+      problem: 'Elavult vagy drága saját szerver, amelynek fenntartása több gondot okoz, mint amennyit ér.',
+      benefits: ['Nem kell saját hardvert fenntartani', 'Igény szerint bővíthető kapacitás', 'Megbízható partneri háttér']
+    },
+    {
+      id: 'security', icon: 'shield', chip: 'Védelem',
+      name: 'IT biztonság',
+      short: 'Kibervédelem és munkatársi oktatás, mert a támadások gyakran egy rossz kattintással indulnak.',
+      detail: 'Védjük a rendszereit a kibertámadásoktól, és megtanítjuk munkatársait felismerni a leggyakoribb veszélyeket, például az adathalász leveleket.',
+      includes: ['Kibervédelmi megoldások', 'Munkatársak oktatása', 'Hozzáférések és jogosultságok rendezése', 'Biztonsági beállítások ellenőrzése'],
+      problem: 'Adathalász levelek, zsarolóvírus és jogosulatlan hozzáférés, amelyek napokra megbéníthatják a céget.',
+      benefits: ['Tudatos, felkészült munkatársak', 'Kisebb esély a sikeres támadásra', 'Rendezett hozzáférések']
+    },
+    {
+      id: 'backup', icon: 'database', chip: 'Mentés',
+      name: 'Mentés és helyreállítás',
+      short: 'Többrétegű mentési stratégia, hogy egy hiba után is folytatódhasson az üzlet.',
+      detail: 'Többrétegű mentési stratégiát alakítunk ki, amelyben az adatok több helyen és több módon is megvannak. A cél az üzletmenet-folytonosság: egy hiba után is gyorsan tovább lehessen dolgozni.',
+      includes: ['Többrétegű mentési stratégia', 'Automatikus mentések', 'Mentések ellenőrzése', 'Helyreállítás hiba esetén'],
+      problem: 'Adatvesztés hardverhibából, véletlen törlésből vagy támadásból, amely után nem lehet dolgozni.',
+      benefits: ['Az adatok több helyen is megvannak', 'Gyorsabb visszatérés a normál működéshez', 'Nyugodtabb üzletmenet']
+    }
+  ];
+
+  var PACKAGES = [
+    { id: 'standard', name: 'STANDARD', level: 1, forWho: 'Kisvállalkozásoknak, akiknek megbízható, alapszintű IT-támogatásra van szükségük.' },
+    { id: 'business', name: 'BUSINESS', level: 2, forWho: 'Növekvő cégeknek, amelyek több rendszert és több munkatársat támogatnak.' },
+    { id: 'premium',  name: 'PREMIUM',  level: 3, forWho: 'Komplex informatikai környezetet működtető cégeknek, a legmagasabb támogatási szinten.' }
+  ];
+
+  var WHY = [
+    { icon: 'layers', title: 'Teljes infrastruktúra, nem szigetmegoldások', text: 'Nem különálló IT szolgáltatásokat vásárol, hanem megoldást kap a teljes informatikai infrastruktúrájára, a szervertől a munkaállomásokig.' },
+    { icon: 'pulse', title: 'Menedzselt szolgáltatás, nem csak óradíj', text: 'Valódi menedzselt IT szolgáltatást (Managed Service Provider) nyújtunk proaktív felügyelettel, nem csak óradíjas rendszergazdák vagyunk.' },
+    { icon: 'clock', title: 'Elérhetőség munkaidőn túl is', text: 'Sürgős informatikai problémák esetén ügyeleti támogatást biztosítunk, hétvégén is.' }
+  ];
+
+  /* Árazási blokkok – az "Árak" szekció ebből épül fel */
+  var PRICE_BLOCKS = [
+    {
+      title: 'Standard óradíj (szerződéssel nem rendelkező ügyfeleinknek)',
+      sub: '',
+      table: {
+        head: ['', 'L1 – Rendszergazdai óradíj', 'L2 – Rendszermérnök óradíj'],
+        rows: [
+          ['Hétköznapi óradíj (8:00–16:30)', '17 000 Ft', '22 500 Ft'],
+          ['Hétvégi óradíj (8:00–16:30)', '20 400 Ft', '27 000 Ft'],
+          ['VIP óradíj (16:30–8:00 és azonnali kérés)', '27 200 Ft', '36 000 Ft']
+        ]
+      }
+    },
+    {
+      title: 'Vállalt válasz-/reakcióidő szerződéses partnereinknek',
+      sub: '',
+      table: {
+        head: ['Típus', 'Vállalt idő'],
+        rows: [
+          ['Standard incidens', '1 munkanap'],
+          ['VIP incidens (azonnali, nem tűr halasztást, pl. leállás)', '4 óra'],
+          ['Standard request', '2 munkanap'],
+          ['VIP request', '1 munkanap']
+        ]
+      }
+    },
+    {
+      title: 'Kiszállási díjak',
+      sub: 'Ügyfeleink gyorsabb és hatékonyabb kiszolgálása érdekében két városban, Pécsen és Budapesten is elérhetőek vagyunk. A kiszállási díjat mindig az ügyfélhez legközelebbi elérhető szakemberünk indulási helyétől számítjuk, így partnereink számára kedvezőbb és kiszámíthatóbb költséget biztosítunk.',
+      table: {
+        head: ['Távolság', 'Díj'],
+        rows: [
+          ['0–10 km', '5 000 Ft'],
+          ['10–30 km', '10 000 Ft'],
+          ['30–50 km', '15 000 Ft'],
+          ['50 km felett', 'egyedi árajánlat']
+        ]
+      },
+      note: 'A díjak tartalmazzák a helyszíni munkavégzéshez kapcsolódó kiszállás költségeit. Nagyobb távolság vagy rendszeres helyszíni támogatás esetén egyedi, kedvezőbb konstrukciót is biztosítunk partnereink számára.',
+      alt: {
+        label: 'vagy',
+        table: {
+          head: ['Helyszín', 'Díj'],
+          rows: [
+            ['Budapesten és Pécsett, városon belül', '5 000 Ft'],
+            ['Városon kívül', '5 000 Ft + 200 Ft/km']
+          ]
+        }
+      }
+    },
+    {
+      title: 'Ajánlott kedvezményes IT support',
+      sub: '',
+      highlight: true,
+      table: {
+        head: ['Tétel', 'Mennyiség', 'Ár'],
+        rows: [
+          ['L1 – Rendszergazda IT support szolgáltatás (óra)', '15', '255 000 Ft'],
+          ['L2 – Rendszermérnök IT support szolgáltatás (óra)', '6', '135 000 Ft'],
+          ['Kiszállási díj', '1 alkalom / hó', 'díjmentes'],
+          ['További kiszállások', 'alkalmanként', '5 000 Ft'],
+          ['Havi rendszerkarbantartási látogatás', '1 alkalom', 'díjmentes']
+        ],
+        totalRow: ['Összesen (forintban)', '', '390 000 Ft'],
+        totalRow2: ['Összesen (euróban – a napi árfolyamtól függően változhat)', '', '965 €']
+      }
+    }
+  ];
+
+  /* Asszisztens: döntési fa. Egy opció vagy `next` (következő kérdés), vagy `result` */
+  var FLOW = {
+    start: { q: 'Mit keres?', hint: 'Néhány kattintással megmutatjuk, melyik szolgáltatás illik Önhöz.', options: [
+      { label: 'Segítségre van szükségem', next: 'help' },
+      { label: 'Új rendszert szeretnék', next: 'build' },
+      { label: 'Szeretnék ajánlatot kérni', next: 'quote' },
+      { label: 'Nem tudom, melyik szolgáltatás kell', next: 'unsure' }
+    ]},
+    help: { q: 'Mi a helyzet?', options: [
+      { label: 'Most nem működik valami', result: 'urgent' },
+      { label: 'Gyakran akadnak a rendszereink', result: 'monitoring' },
+      { label: 'Támadástól vagy adatvesztéstől tartok', next: 'protect' }
+    ]},
+    protect: { q: 'Mi aggasztja jobban?', options: [
+      { label: 'Kibertámadás, adathalászat', result: 'security' },
+      { label: 'Adatvesztés', result: 'backup' },
+      { label: 'Mindkettő', result: 'both' }
+    ]},
+    build: { q: 'Mit szeretne bevezetni?', options: [
+      { label: 'Céges levelezést, Microsoft 365-öt', result: 'm365' },
+      { label: 'Felhőt vagy VPS-t', result: 'cloud' },
+      { label: 'Hálózatot, szervereket', result: 'network' },
+      { label: 'Egy induló cég teljes IT-ját', result: 'startup' }
+    ]},
+    quote: { q: 'Mire kér ajánlatot?', options: [
+      { label: 'Teljes IT-üzemeltetésre', result: 'managed' },
+      { label: 'Egy konkrét szolgáltatásra', result: 'specific' }
+    ]},
+    unsure: { q: 'Mi a legnagyobb gond most?', options: [
+      { label: 'Sok a hiba, gyakran leáll valami', result: 'monitoring' },
+      { label: 'Nincs saját informatikusunk', result: 'managed' },
+      { label: 'Aggódom a biztonság és az adatok miatt', next: 'protect' },
+      { label: 'Most indul a cégünk', result: 'startup' }
+    ]}
+  };
+
+  var RESULTS = {
+    urgent:     { title: 'Monitoring és üzemeltetés', text: 'Sürgős esetben 0–24 ügyeleti támogatást nyújtunk. Írja le, mi nem működik, és rövid időn belül jelentkezünk.', services: ['monitoring'], interest: 'monitoring' },
+    monitoring: { title: 'Monitoring és üzemeltetés', text: 'A proaktív felügyelet észreveszi a hibát, mielőtt megállítaná a munkát, így nem kell utólag kapkodni.', services: ['monitoring'], interest: 'monitoring' },
+    security:   { title: 'IT biztonság', text: 'Kibervédelmi megoldásokkal és a munkatársak oktatásával csökkentjük a sikeres támadás esélyét.', services: ['security'], interest: 'security' },
+    backup:     { title: 'Mentés és helyreállítás', text: 'Többrétegű mentési stratégiával gondoskodunk róla, hogy egy hiba után is gyorsan helyreállíthatók legyenek az adatok.', services: ['backup'], interest: 'backup' },
+    both:       { title: 'IT biztonság és mentés', text: 'A két terület kiegészíti egymást: a védelem csökkenti a támadás esélyét, a mentés pedig gondoskodik a helyreállításról.', services: ['security', 'backup'], interest: 'security' },
+    m365:       { title: 'Microsoft 365', text: 'Bevezetjük a modern munkakörnyezetet és a vállalati levelezést, a meglévő adatok áttelepítésével együtt.', services: ['m365'], interest: 'm365' },
+    cloud:      { title: 'Felhő és VPS', text: 'Azure alapú és VPS megoldások, ha nem szeretne saját szervert fenntartani.', services: ['cloud'], interest: 'cloud' },
+    network:    { title: 'Szerver és hálózat', text: 'Megtervezzük és felépítjük a hálózatot és a szervereket, majd üzemeltetjük is őket.', services: ['network'], interest: 'network' },
+    startup:    { title: 'Teljes IT-környezet induló cégeknek', text: 'Érdemes egy kézben tartani a hálózatot, a levelezést és a felügyeletet. Az ajánlatot a cége méretéhez igazítjuk.', services: ['network', 'm365'], anchor: { label: 'Csomagok megtekintése', target: 'csomagok' }, interest: 'undecided' },
+    managed:    { title: 'Teljes IT-üzemeltetés', text: 'Egy partner átveszi a felügyeletet, a felhőt, a biztonságot és a mentést. A STANDARD, BUSINESS és PREMIUM csomagok közül a cége igényeihez illőt ajánljuk.', services: [], anchor: { label: 'Csomagok megtekintése', target: 'csomagok' }, interest: 'undecided' },
+    specific:   { title: 'Egy konkrét szolgáltatás', text: 'Nézze meg a szolgáltatások részleteit, az ajánlatkérésnél pedig jelölje meg, melyikre van szüksége.', services: [], anchor: { label: 'Szolgáltatások megtekintése', target: 'szolgaltatasok' }, interest: 'undecided' }
+  };
+
+  /* ========================================================
+     Segédek
+     ======================================================== */
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var scrollBehavior = function () { return reduceMotion ? 'auto' : 'smooth'; };
+  var byId = {}; SERVICES.forEach(function (s) { byId[s.id] = s; });
+
+  var ICONS = {
+    pulse: '<path d="M3 12h4l2.5-6 4 12 2.5-6H21"/>',
+    network: '<circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/><path d="M12 7.2v4.3M12 11.5 6.2 17M12 11.5l5.8 5.5"/>',
+    grid: '<rect x="3.5" y="3.5" width="7.5" height="7.5" rx="2"/><rect x="13" y="3.5" width="7.5" height="7.5" rx="2"/><rect x="3.5" y="13" width="7.5" height="7.5" rx="2"/><rect x="13" y="13" width="7.5" height="7.5" rx="2"/>',
+    cloud: '<path d="M7 18.5a4.2 4.2 0 0 1-.7-8.35A6 6 0 0 1 17.9 9.6a4.45 4.45 0 0 1-.4 8.9H7z"/>',
+    shield: '<path d="M12 3.2 19.5 6v5.6c0 4.4-3.1 7.6-7.5 9.2-4.4-1.6-7.5-4.8-7.5-9.2V6L12 3.2z"/><path d="m9 12 2.1 2.1L15.2 10"/>',
+    database: '<ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6M4 11.5v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/>',
+    layers: '<path d="m12 3 9 4.8-9 4.8-9-4.8L12 3z"/><path d="m3 12.2 9 4.8 9-4.8M3 16.6l9 4.8 9-4.8"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/>',
+    arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    chevron: '<path d="m6 9 6 6 6-6"/>',
+    check: '<path d="m5 12.5 4.2 4.2L19 7"/>',
+    close: '<path d="M6 6l12 12M18 6 6 18"/>',
+    chat: '<path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 4v-4h0A2.5 2.5 0 0 1 4 13.5v-7z"/><path d="M8.5 9h7M8.5 12h4"/>'
+  };
+  var FILL_ICONS = {
+    linkedin: '<path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4V21H3V9.75zM10 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4V9.75z"/>',
+    facebook: '<path d="M13.5 21v-7.5H16l.5-3h-3V8.7c0-.9.3-1.5 1.6-1.5H16.6V4.5c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2H7.5v3h2.7V21h3.3z"/>'
+  };
+  function icon(name, cls) {
+    if (FILL_ICONS[name]) {
+      return '<svg class="ic ' + (cls || '') + '" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false">' + FILL_ICONS[name] + '</svg>';
+    }
+    return '<svg class="ic ' + (cls || '') + '" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + ICONS[name] + '</svg>';
+  }
+  function hydrateIcons(root) {
+    $$('[data-icon]', root).forEach(function (el) {
+      var wrap = document.createElement('span');
+      wrap.style.display = 'contents';
+      wrap.innerHTML = icon(el.getAttribute('data-icon'), el.getAttribute('data-cls') || '');
+      var svg = wrap.firstChild;
+      el.replaceWith(svg);
+    });
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  /* ========================================================
+     Komponensek: szolgáltatás-kártya, csomag, miért mi
+     ======================================================== */
+  function ServiceCard(s, i) {
+    var lis = function (arr) { return arr.map(function (t) { return '<li>' + icon('check') + '<span>' + t + '</span></li>'; }).join(''); };
+    return '' +
+    '<li class="svc-item" data-reveal style="--d:' + ((i % 2) * 80) + 'ms">' +
+      '<article class="svc" id="svc-' + s.id + '" data-id="' + s.id + '">' +
+        '<div class="svc-head">' +
+          '<span class="svc-icon">' + icon(s.icon) + '</span>' +
+          '<h3 class="svc-title"><button type="button" class="svc-toggle" id="btn-' + s.id + '" aria-expanded="false" aria-controls="panel-' + s.id + '">' + s.name + '</button></h3>' +
+          '<p class="svc-short">' + s.short + '</p>' +
+          '<span class="svc-more" aria-hidden="true"><span class="svc-more-text">Részletek</span>' + icon('chevron') + '</span>' +
+        '</div>' +
+        '<div class="svc-panel" id="panel-' + s.id + '" role="region" aria-labelledby="btn-' + s.id + '">' +
+          '<div class="svc-panel-inner"><div class="svc-body">' +
+            '<p class="svc-detail">' + s.detail + '</p>' +
+            '<div class="svc-cols">' +
+              '<div><h4>Mit tartalmaz</h4><ul class="svc-list" role="list">' + lis(s.includes) + '</ul></div>' +
+              '<div><h4>Előnyök</h4><ul class="svc-list" role="list">' + lis(s.benefits) + '</ul></div>' +
+            '</div>' +
+            '<p class="svc-problem"><strong>Milyen problémára ad megoldást?</strong><br>' + s.problem + '</p>' +
+            '<div class="svc-foot"><p class="svc-price">' + PRICING + '</p>' +
+              '<button type="button" class="btn btn-primary btn-sm" data-quote="' + s.id + '">Ajánlatot kérek erre ' + icon('arrow') + '</button></div>' +
+          '</div></div>' +
+        '</div>' +
+      '</article>' +
+    '</li>';
+  }
+
+  function PackageCard(p, i) {
+    var bars = [1, 2, 3].map(function (n) { return '<i class="' + (n <= p.level ? 'on' : '') + '"></i>'; }).join('');
+    return '' +
+    '<li data-reveal style="--d:' + (i * 80) + 'ms"><article class="pkg" data-id="' + p.id + '">' +
+      '<div class="pkg-top"><h3>' + p.name + '</h3><span class="lvl" role="img" aria-label="Támogatási szint: ' + p.level + ' a 3-ból">' + bars + '</span></div>' +
+      '<p class="pkg-for">' + p.forWho + '</p>' +
+      '<p class="pkg-note">A pontos tartalmat és a díjat igényfelmérés után egyeztetjük.</p>' +
+      '<button type="button" class="btn btn-ghost btn-sm" data-quote="pkg-' + p.id + '">Ajánlatot kérek ' + icon('arrow') + '</button>' +
+    '</article></li>';
+  }
+
+  function WhyItem(w) {
+    return '<div class="why-item" data-reveal><span class="why-icon">' + icon(w.icon) + '</span><div><h3>' + w.title + '</h3><p>' + w.text + '</p></div></div>';
+  }
+
+  function priceTable(t) {
+    var head = '<tr>' + t.head.map(function (h, i) { return '<th' + (i > 0 ? ' class="num"' : '') + '>' + esc(h) + '</th>'; }).join('') + '</tr>';
+    var rows = t.rows.map(function (r) {
+      return '<tr>' + r.map(function (c, i) { return '<td' + (i > 0 ? ' class="num"' : '') + '>' + esc(c) + '</td>'; }).join('') + '</tr>';
+    }).join('');
+    var totals = '';
+    if (t.totalRow) {
+      totals += '<tr class="total">' + t.totalRow.map(function (c, i) { return '<td' + (i > 0 ? ' class="num"' : '') + '>' + esc(c) + '</td>'; }).join('') + '</tr>';
+    }
+    if (t.totalRow2) {
+      totals += '<tr class="total">' + t.totalRow2.map(function (c, i) { return '<td' + (i > 0 ? ' class="num"' : '') + '>' + esc(c) + '</td>'; }).join('') + '</tr>';
+    }
+    return '<table class="price-table"><thead>' + head + '</thead><tbody>' + rows + totals + '</tbody></table>';
+  }
+
+  function PriceBlock(b) {
+    var out = '<div class="price-block" data-reveal>' +
+      '<h3>' + esc(b.title) + '</h3>' +
+      (b.sub ? '<p class="price-sub">' + esc(b.sub) + '</p>' : '') +
+      '<div class="table-wrap' + (b.highlight ? ' price-highlight' : '') + '">' + priceTable(b.table) + '</div>';
+    if (b.note) out += '<p class="price-note">' + esc(b.note) + '</p>';
+    if (b.alt) out += '<div class="price-or">' + esc(b.alt.label) + '</div><div class="table-wrap">' + priceTable(b.alt.table) + '</div>';
+    out += '</div>';
+    return out;
+  }
+
+  /* ========================================================
+     Render
+     ======================================================== */
+  $('#svc-grid').innerHTML = SERVICES.map(ServiceCard).join('');
+  $('#pkg-grid').innerHTML = PACKAGES.map(PackageCard).join('');
+  $('#why').innerHTML = WHY.map(WhyItem).join('');
+  $('#price-blocks').innerHTML = PRICE_BLOCKS.map(PriceBlock).join('');
+  $('#foot-services').innerHTML = SERVICES.map(function (s) {
+    return '<li><a href="#svc-' + s.id + '" data-open-service="' + s.id + '">' + s.name + '</a></li>';
+  }).join('');
+  $('#social').innerHTML = CONFIG.social.map(function (s) {
+    return '<a href="' + s.url + '" target="_blank" rel="noopener" aria-label="' + s.name + ' (új lapon nyílik)">' + icon(s.icon) + '</a>';
+  }).join('');
+
+  function renderContactInfo() {
+    ['#mail-link', '#foot-mail'].forEach(function (sel) {
+      var a = $(sel); if (!a) return; a.href = 'mailto:' + CONFIG.email; a.textContent = CONFIG.email;
+    });
+    var p1 = CONFIG.phones[0] || '', p2 = CONFIG.phones[1] || '';
+    var tel = function (p) { return 'tel:' + p.replace(/[^\d+]/g, ''); };
+    if (p1) { var a1 = $('#phone-link-1'); if (a1) { a1.href = tel(p1); a1.textContent = p1; } var f1 = $('#foot-phone-1'); if (f1) { f1.href = tel(p1); f1.textContent = p1; } }
+    if (p2) { var a2 = $('#phone-link-2'); if (a2) { a2.href = tel(p2); a2.textContent = p2; } var f2 = $('#foot-phone-2'); if (f2) { f2.href = tel(p2); f2.textContent = p2; } }
+    else { var pl2 = $('#phone-link-2'); if (pl2) pl2.style.display = 'none'; var fp2 = $('#foot-phone-2'); if (fp2) fp2.style.display = 'none'; }
+  }
+  renderContactInfo();
+
+  /* Kapcsolati adatok betöltése a szerkeszthető contacts.txt fájlból.
+     Formátum: KULCS=érték soronként (EMAIL, PHONE1, PHONE2).
+     A fájlt az admin.html oldalon lehet szerkeszteni és GitHub-ra menteni. */
+  fetch('contacts.txt', { cache: 'no-store' }).then(function (r) {
+    if (!r.ok) throw new Error('no contacts.txt');
+    return r.text();
+  }).then(function (txt) {
+    var data = {};
+    txt.split(/\r?\n/).forEach(function (line) {
+      line = line.trim();
+      if (!line || line.indexOf('#') === 0) return;
+      var idx = line.indexOf('=');
+      if (idx === -1) return;
+      data[line.slice(0, idx).trim().toUpperCase()] = line.slice(idx + 1).trim();
+    });
+    if (data.EMAIL) CONFIG.email = data.EMAIL;
+    var phones = [];
+    if (data.PHONE1) phones.push(data.PHONE1);
+    if (data.PHONE2) phones.push(data.PHONE2);
+    if (phones.length) CONFIG.phones = phones;
+    renderContactInfo();
+  }).catch(function () { /* contacts.txt még nincs a szerveren, marad az alapérték */ });
+
+  // kapcsolati űrlap: érdeklődés-választó
+  var INTEREST = [{ v: 'undecided', l: 'Még nem tudom, kérem a segítségüket' }]
+    .concat(PACKAGES.map(function (p) { return { v: 'pkg-' + p.id, l: p.name + ' csomag' }; }))
+    .concat(SERVICES.map(function (s) { return { v: s.id, l: s.name }; }));
+  $('#f-interest').innerHTML = INTEREST.map(function (o) { return '<option value="' + o.v + '">' + o.l + '</option>'; }).join('');
+
+  hydrateIcons(document);
+
+  /* ========================================================
+     Hero vizuális elem: 365 napos neon gyűrű + szolgáltatás-csomópontok
+     ======================================================== */
+  (function buildRing() {
+    var svg = $('#ring-svg'), ring = $('#ring');
+    var cx = 260, cy = 260, out = '';
+    var months = {};
+    for (var k = 0; k < 12; k++) months[Math.round(k * 365 / 12)] = true;
+    for (var i = 0; i < 365; i++) {
+      var a = (i / 365) * Math.PI * 2 - Math.PI / 2, long = !!months[i];
+      var r1 = long ? 224 : 233, r2 = 247;
+      out += '<line class="tick' + (long ? ' tick--m' : '') + '" style="--i:' + i + '" x1="' + (cx + r1 * Math.cos(a)).toFixed(1) + '" y1="' + (cy + r1 * Math.sin(a)).toFixed(1) + '" x2="' + (cx + r2 * Math.cos(a)).toFixed(1) + '" y2="' + (cy + r2 * Math.sin(a)).toFixed(1) + '"/>';
+    }
+    var R = 168, chips = '', spokes = '';
+    SERVICES.forEach(function (s, idx) {
+      var ang = (-90 + idx * 60) * Math.PI / 180;
+      var x = cx + R * Math.cos(ang), y = cy + R * Math.sin(ang);
+      spokes += '<line class="ring-spoke" x1="' + (cx + 76 * Math.cos(ang)).toFixed(1) + '" y1="' + (cy + 76 * Math.sin(ang)).toFixed(1) + '" x2="' + x.toFixed(1) + '" y2="' + y.toFixed(1) + '"/>';
+      chips += '<button type="button" class="chip" data-open-service="' + s.id + '" style="left:' + (x / 520 * 100).toFixed(2) + '%;top:' + (y / 520 * 100).toFixed(2) + '%;--k:' + idx + '" aria-label="' + s.name + ' – részletek megnyitása"><span class="dot"></span>' + s.chip + '</button>';
+    });
+    var defs = '<defs><linearGradient id="rg" gradientUnits="userSpaceOnUse" x1="30" y1="30" x2="490" y2="490">' +
+      '<stop offset="0" stop-color="#E05CFF"/><stop offset=".5" stop-color="#A45CFF"/><stop offset="1" stop-color="#3FA2FF"/></linearGradient></defs>';
+    svg.innerHTML = defs + out +
+      '<g class="ring-fade"><circle class="ring-orbit" cx="' + cx + '" cy="' + cy + '" r="' + R + '"/>' + spokes + '</g>' +
+      '<circle class="ring-disc" cx="' + cx + '" cy="' + cy + '" r="76"/>';
+    ring.insertAdjacentHTML('beforeend', chips);
+  })();
+
+  /* ========================================================
+     Accordion: egyszerre egy kártya nyitott
+     ======================================================== */
+  var openId = null;
+  var headerOffset = function () { var h = $('#site-header'); return (h ? h.getBoundingClientRect().bottom : 72) + 8; };
+
+  function setOpen(id) {
+    openId = id;
+    $$('.svc').forEach(function (card) {
+      var on = card.dataset.id === id;
+      card.classList.toggle('is-open', on);
+      $('.svc-toggle', card).setAttribute('aria-expanded', on ? 'true' : 'false');
+      $('.svc-more-text', card).textContent = on ? 'Bezárás' : 'Részletek';
+    });
+  }
+  function ensureVisible(card) {
+    var r = card.getBoundingClientRect(), top = headerOffset();
+    if (r.top < top) card.scrollIntoView({ block: 'start', behavior: scrollBehavior() });
+    else if (r.bottom > window.innerHeight - 12) card.scrollIntoView({ block: 'nearest', behavior: scrollBehavior() });
+  }
+  function toggleService(id) {
+    var next = openId === id ? null : id;
+    setOpen(next);
+    if (next) setTimeout(function () { ensureVisible($('#svc-' + next)); }, 520);
+  }
+  function showService(id) {
+    var card = $('#svc-' + id); if (!card) return;
+    setOpen(id);
+    requestAnimationFrame(function () { card.scrollIntoView({ block: 'start', behavior: scrollBehavior() }); });
+    setTimeout(function () {
+      if (Math.abs(card.getBoundingClientRect().top - headerOffset()) > 40) card.scrollIntoView({ block: 'start', behavior: scrollBehavior() });
+    }, 620);
+  }
+  $('#svc-grid').addEventListener('click', function (e) {
+    var b = e.target.closest('.svc-toggle');
+    if (b) toggleService(b.closest('.svc').dataset.id);
+  });
+
+  /* ========================================================
+     Ajánlatkérés: előtöltés + görgetés
+     ======================================================== */
+  var form = $('#quote-form'), statusEl = $('#form-status');
+  function goQuote(interest) {
+    if (interest) form.elements.interest.value = interest;
+    $('#kapcsolat').scrollIntoView({ block: 'start', behavior: scrollBehavior() });
+    setTimeout(function () { $('#f-name').focus({ preventScroll: true }); }, reduceMotion ? 0 : 650);
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    var d = new FormData(form);
+    var label = INTEREST.filter(function (o) { return o.v === d.get('interest'); })[0].l;
+    var subject = 'Ajánlatkérés – ' + d.get('name');
+    var body = 'Név: ' + d.get('name') + '\nE-mail: ' + d.get('email') + '\nÉrdeklődés: ' + label + '\n\n' + (d.get('message') || '');
+    var href = 'mailto:' + CONFIG.email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    var a = document.createElement('a'); a.href = href; document.body.appendChild(a); a.click(); a.remove();
+    statusEl.innerHTML = 'Megnyitottuk az e-mail programját a kitöltött üzenettel. Ha nem nyílt meg, írjon közvetlenül ide: <a href="mailto:' + CONFIG.email + '">' + CONFIG.email + '</a>';
+  });
+
+  /* ========================================================
+     Asszisztens: tiszta, kiszámítható állapotgép
+     állapot = { open, node, result, stack }
+     ======================================================== */
+  var assist = $('#assist'), fab = $('#fab'), panel = $('#assist-panel'), aBody = $('#a-body'), aFoot = $('#a-foot');
+  var A = { open: false, node: 'start', result: null, stack: [] };
+  var compactTimerDone = false;
+
+  function viewNode() {
+    var n = FLOW[A.node];
+    return '<div class="a-step"><h3 class="a-q" id="a-q" tabindex="-1">' + n.q + '</h3>' +
+      (n.hint ? '<p class="a-hint">' + n.hint + '</p>' : '') +
+      '<div class="a-opts">' + n.options.map(function (o, i) {
+        return '<button type="button" class="a-opt" data-act="choose" data-i="' + i + '"><span>' + o.label + '</span>' + icon('arrow') + '</button>';
+      }).join('') + '</div></div>';
+  }
+  function viewResult() {
+    var r = RESULTS[A.result], btns = [];
+    var svc = r.services.map(function (id) { return byId[id]; });
+    svc.forEach(function (s) {
+      btns.push({ act: 'service', id: s.id, label: svc.length === 1 ? 'Mutasd a szolgáltatást' : 'Mutasd: ' + s.name });
+    });
+    if (r.anchor) btns.push({ act: 'anchor', id: r.anchor.target, label: r.anchor.label });
+    btns.push({ act: 'quote', id: '', label: 'Kérek ajánlatot' });
+    return '<div class="a-step a-result"><span class="a-tag">Ajánlásunk</span>' +
+      '<h3 class="a-q" id="a-q" tabindex="-1">' + r.title + '</h3><p>' + r.text + '</p>' +
+      '<div class="a-actions">' + btns.map(function (b, i) {
+        return '<button type="button" class="btn ' + (i === 0 ? 'btn-primary' : 'btn-ghost') + '" data-act="' + b.act + '" data-id="' + b.id + '">' + b.label + (i === 0 ? ' ' + icon('arrow') : '') + '</button>';
+      }).join('') + '</div></div>';
+  }
+  function render(focus) {
+    aBody.innerHTML = A.result ? viewResult() : viewNode();
+    var atStart = A.node === 'start' && !A.result;
+    aFoot.innerHTML = atStart ? '' :
+      '<button type="button" data-act="back">← Vissza</button><button type="button" data-act="restart">Újrakezdés</button>';
+    aBody.scrollTop = 0;
+    if (focus) { var q = $('#a-q'); if (q) q.focus({ preventScroll: true }); }
+  }
+  function openAssistant(startNode) {
+    if (startNode && FLOW[startNode] && !(A.open && A.node === startNode)) {
+      A.stack = [{ node: 'start', result: null }]; A.node = startNode; A.result = null;
+    } else if (!A.open && !startNode) { /* megtartja az utolsó állapotot */ }
+    setAssistant(true);
+    render(true);
+  }
+  function setAssistant(open) {
+    A.open = open;
+    assist.classList.toggle('is-open', open);
+    fab.setAttribute('aria-expanded', open ? 'true' : 'false');
+    fab.classList.toggle('is-compact', open || compactTimerDone);
+    panel.inert = !open;
+  }
+  function closeAssistant(returnFocus) {
+    setAssistant(false);
+    if (returnFocus) fab.focus({ preventScroll: true });
+  }
+  function resetAssistant() { A.node = 'start'; A.result = null; A.stack = []; }
+
+  panel.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-act]'); if (!t) return;
+    var act = t.dataset.act;
+    if (act === 'choose') {
+      var opt = FLOW[A.node].options[+t.dataset.i];
+      A.stack.push({ node: A.node, result: A.result });
+      if (opt.next) A.node = opt.next; else A.result = opt.result;
+      render(true);
+    } else if (act === 'back') {
+      var prev = A.stack.pop(); if (prev) { A.node = prev.node; A.result = prev.result; } render(true);
+    } else if (act === 'restart') {
+      resetAssistant(); render(true);
+    } else if (act === 'service') {
+      closeAssistant(false); showService(t.dataset.id);
+    } else if (act === 'anchor') {
+      closeAssistant(false); $('#' + t.dataset.id).scrollIntoView({ block: 'start', behavior: scrollBehavior() });
+    } else if (act === 'quote') {
+      var r = RESULTS[A.result]; closeAssistant(false); goQuote(r ? r.interest : 'undecided');
+    }
+  });
+  fab.addEventListener('click', function () { A.open ? closeAssistant(false) : openAssistant(); });
+  $('#a-close').addEventListener('click', function () { closeAssistant(true); });
+
+  setTimeout(function () { compactTimerDone = true; if (!A.open) fab.classList.add('is-compact'); }, 11000);
+  panel.inert = true;
+  render(false);
+
+  /* ========================================================
+     Globális kattintás-delegálás (footer, hero, kártyák, CTA-k)
+     ======================================================== */
+  document.addEventListener('click', function (e) {
+    var s = e.target.closest('[data-open-service]');
+    if (s) { e.preventDefault(); showService(s.dataset.openService); return; }
+    var q = e.target.closest('[data-quote]');
+    if (q) { e.preventDefault(); goQuote(q.dataset.quote); closeMenu(); return; }
+    var o = e.target.closest('[data-open-assistant]');
+    if (o) { e.preventDefault(); openAssistant(o.dataset.openAssistant); return; }
+  });
+
+  /* ========================================================
+     Navbar: scroll-állapot, mobil menü, aktív elem
+     ======================================================== */
+  var header = $('#site-header'), burger = $('#burger');
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function () { header.classList.toggle('is-scrolled', window.scrollY > 8); ticking = false; });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  function closeMenu() {
+    header.classList.remove('is-open'); document.body.classList.remove('menu-open');
+    burger.setAttribute('aria-expanded', 'false'); burger.setAttribute('aria-label', 'Menü megnyitása');
+  }
+  burger.addEventListener('click', function () {
+    var open = !header.classList.contains('is-open');
+    header.classList.toggle('is-open', open); document.body.classList.toggle('menu-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Menü bezárása' : 'Menü megnyitása');
+  });
+  $$('#site-nav a').forEach(function (a) { a.addEventListener('click', closeMenu); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    if (A.open) closeAssistant(true); else if (header.classList.contains('is-open')) { closeMenu(); burger.focus(); }
+  });
+
+  var navLinks = $$('#site-nav a[href^="#"]:not(.btn)');
+  if ('IntersectionObserver' in window) {
+    var navMap = {}; navLinks.forEach(function (a) { navMap[a.getAttribute('href').slice(1)] = a; });
+    var navIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        navLinks.forEach(function (a) { a.removeAttribute('aria-current'); });
+        if (navMap[en.target.id]) navMap[en.target.id].setAttribute('aria-current', 'true');
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ['top', 'szolgaltatasok', 'rolunk', 'csomagok', 'arak', 'kapcsolat'].forEach(function (id) { var el = document.getElementById(id); if (el) navIO.observe(el); });
+
+    /* Scroll reveal */
+    var revealIO = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); obs.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    $$('[data-reveal]').forEach(function (el) { revealIO.observe(el); });
+  } else {
+    $$('[data-reveal]').forEach(function (el) { el.classList.add('in'); });
+  }
+
+  /* ========================================================
+     Finom kurzor-interakció: neon fény a kártyákon
+     ======================================================== */
+  if (window.matchMedia && matchMedia('(hover:hover) and (pointer:fine)').matches && !reduceMotion) {
+    document.addEventListener('pointermove', function (e) {
+      var card = e.target.closest && e.target.closest('.svc, .pkg'); if (!card) return;
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    }, { passive: true });
+  }
+})();
+</script>
+</body>
+</html>
