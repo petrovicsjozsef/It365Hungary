@@ -455,6 +455,27 @@ table.price-table tbody tr:hover{background:rgba(180,76,255,.07)}
 .price-or::before,.price-or::after{content:"";flex:1;height:1px;background:var(--line-strong)}
 .price-highlight{border-color:var(--violet-line)!important;box-shadow:var(--shadow-md),var(--glow)}
 
+/* Egyedi árazás panel (árlista helyett) */
+.price-custom{
+  position:relative;overflow:hidden;max-width:720px;margin:8px auto 0;
+  padding:clamp(30px,4.5vw,52px);text-align:center;
+  background:var(--surface);border:1px solid var(--violet-line);border-radius:var(--r-xl);
+  box-shadow:var(--shadow-md),var(--glow);
+}
+.price-custom::before{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(420px 220px at 50% -10%,rgba(180,76,255,.16),transparent 65%);
+}
+.price-custom>*{position:relative}
+.price-custom .pc-badge{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .95rem;
+  border:1px solid var(--line-strong);background:var(--violet-soft);border-radius:999px;
+  font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--neon-text);
+}
+.price-custom h3{margin-top:20px;font-size:clamp(1.4rem,2.6vw,1.9rem);letter-spacing:-.02em}
+.price-custom p{margin-top:16px;color:var(--ink-2);max-width:54ch;margin-inline:auto;font-size:1.02rem}
+.price-custom .btn{margin-top:30px}
+
 /* ==========================================================
    Contact / CTA
    ========================================================== */
@@ -798,9 +819,15 @@ body.menu-open .assist{display:none}
     <div class="container">
       <div class="sec-head" data-reveal>
         <h2>Áraink</h2>
-        <p>Átlátható díjszabás szerződés nélküli és szerződéses ügyfeleinknek egyaránt. A pontos ajánlatot mindig igényfelmérés után adjuk.</p>
+        <p>Nincs merev árlistánk – minden ügyfélnek a saját igényeihez szabott, egyedi ajánlatot készítünk.</p>
       </div>
-      <div id="price-blocks"></div>
+      <div class="price-custom" data-reveal>
+        <span class="pc-badge">Egyedi árazás</span>
+        <h3>Minden ügyfélnek egyedi árral dolgozunk</h3>
+        <p>Nem rögzített árlistával dolgozunk. A díjat mindig a vállalkozása méretéhez, a rendszereihez és a kért támogatási szinthez igazítjuk, így csak azért fizet, amire valóban szüksége van.</p>
+        <p>A pontos árajánlatot rövid, díjmentes igényfelmérés után adjuk.</p>
+        <a href="#kapcsolat" class="btn btn-primary" data-quote="undecided">Kérjen egyedi ajánlatot <span data-icon="arrow"></span></a>
+      </div>
     </div>
   </section>
 
@@ -1121,76 +1148,6 @@ body.menu-open .assist{display:none}
     { icon: 'clock', title: 'Elérhetőség munkaidőn túl is', text: 'Sürgős informatikai problémák esetén ügyeleti támogatást biztosítunk, hétvégén is.' }
   ];
 
-  /* Árazási blokkok – az "Árak" szekció ebből épül fel */
-  var PRICE_BLOCKS = [
-    {
-      title: 'Standard óradíj (szerződéssel nem rendelkező ügyfeleinknek)',
-      sub: '',
-      table: {
-        head: ['', 'L1 – Rendszergazdai óradíj', 'L2 – Rendszermérnök óradíj'],
-        rows: [
-          ['Hétköznapi óradíj (8:00–16:30)', '17 000 Ft', '22 500 Ft'],
-          ['Hétvégi óradíj (8:00–16:30)', '20 400 Ft', '27 000 Ft'],
-          ['VIP óradíj (16:30–8:00 és azonnali kérés)', '27 200 Ft', '36 000 Ft']
-        ]
-      }
-    },
-    {
-      title: 'Vállalt válasz-/reakcióidő szerződéses partnereinknek',
-      sub: '',
-      table: {
-        head: ['Típus', 'Vállalt idő'],
-        rows: [
-          ['Standard incidens', '1 munkanap'],
-          ['VIP incidens (azonnali, nem tűr halasztást, pl. leállás)', '4 óra'],
-          ['Standard request', '2 munkanap'],
-          ['VIP request', '1 munkanap']
-        ]
-      }
-    },
-    {
-      title: 'Kiszállási díjak',
-      sub: 'Ügyfeleink gyorsabb és hatékonyabb kiszolgálása érdekében két városban, Pécsen és Budapesten is elérhetőek vagyunk. A kiszállási díjat mindig az ügyfélhez legközelebbi elérhető szakemberünk indulási helyétől számítjuk, így partnereink számára kedvezőbb és kiszámíthatóbb költséget biztosítunk.',
-      table: {
-        head: ['Távolság', 'Díj'],
-        rows: [
-          ['0–10 km', '5 000 Ft'],
-          ['10–30 km', '10 000 Ft'],
-          ['30–50 km', '15 000 Ft'],
-          ['50 km felett', 'egyedi árajánlat']
-        ]
-      },
-      note: 'A díjak tartalmazzák a helyszíni munkavégzéshez kapcsolódó kiszállás költségeit. Nagyobb távolság vagy rendszeres helyszíni támogatás esetén egyedi, kedvezőbb konstrukciót is biztosítunk partnereink számára.',
-      alt: {
-        label: 'vagy',
-        table: {
-          head: ['Helyszín', 'Díj'],
-          rows: [
-            ['Budapesten és Pécsett, városon belül', '5 000 Ft'],
-            ['Városon kívül', '5 000 Ft + 200 Ft/km']
-          ]
-        }
-      }
-    },
-    {
-      title: 'Ajánlott kedvezményes IT support',
-      sub: '',
-      highlight: true,
-      table: {
-        head: ['Tétel', 'Mennyiség', 'Ár'],
-        rows: [
-          ['L1 – Rendszergazda IT support szolgáltatás (óra)', '15', '255 000 Ft'],
-          ['L2 – Rendszermérnök IT support szolgáltatás (óra)', '6', '135 000 Ft'],
-          ['Kiszállási díj', '1 alkalom / hó', 'díjmentes'],
-          ['További kiszállások', 'alkalmanként', '5 000 Ft'],
-          ['Havi rendszerkarbantartási látogatás', '1 alkalom', 'díjmentes']
-        ],
-        totalRow: ['Összesen (forintban)', '', '390 000 Ft'],
-        totalRow2: ['Összesen (euróban – a napi árfolyamtól függően változhat)', '', '965 €']
-      }
-    }
-  ];
-
   /* Asszisztens: döntési fa. Egy opció vagy `next` (következő kérdés), vagy `result` */
   var FLOW = {
     start: { q: 'Mit keres?', hint: 'Néhány kattintással megmutatjuk, melyik szolgáltatás illik Önhöz.', options: [
@@ -1346,39 +1303,12 @@ body.menu-open .assist{display:none}
     return '<div class="why-item" data-reveal><span class="why-icon">' + icon(w.icon) + '</span><div><h3>' + w.title + '</h3><p>' + w.text + '</p></div></div>';
   }
 
-  function priceTable(t) {
-    var head = '<tr>' + t.head.map(function (h, i) { return '<th' + (i > 0 ? ' class="num"' : '') + '>' + esc(h) + '</th>'; }).join('') + '</tr>';
-    var rows = t.rows.map(function (r) {
-      return '<tr>' + r.map(function (c, i) { return '<td' + (i > 0 ? ' class="num"' : '') + '>' + esc(c) + '</td>'; }).join('') + '</tr>';
-    }).join('');
-    var totals = '';
-    if (t.totalRow) {
-      totals += '<tr class="total">' + t.totalRow.map(function (c, i) { return '<td' + (i > 0 ? ' class="num"' : '') + '>' + esc(c) + '</td>'; }).join('') + '</tr>';
-    }
-    if (t.totalRow2) {
-      totals += '<tr class="total">' + t.totalRow2.map(function (c, i) { return '<td' + (i > 0 ? ' class="num"' : '') + '>' + esc(c) + '</td>'; }).join('') + '</tr>';
-    }
-    return '<table class="price-table"><thead>' + head + '</thead><tbody>' + rows + totals + '</tbody></table>';
-  }
-
-  function PriceBlock(b) {
-    var out = '<div class="price-block" data-reveal>' +
-      '<h3>' + esc(b.title) + '</h3>' +
-      (b.sub ? '<p class="price-sub">' + esc(b.sub) + '</p>' : '') +
-      '<div class="table-wrap' + (b.highlight ? ' price-highlight' : '') + '">' + priceTable(b.table) + '</div>';
-    if (b.note) out += '<p class="price-note">' + esc(b.note) + '</p>';
-    if (b.alt) out += '<div class="price-or">' + esc(b.alt.label) + '</div><div class="table-wrap">' + priceTable(b.alt.table) + '</div>';
-    out += '</div>';
-    return out;
-  }
-
   /* ========================================================
      Render
      ======================================================== */
   $('#svc-grid').innerHTML = SERVICES.map(ServiceCard).join('');
   $('#pkg-grid').innerHTML = PACKAGES.map(PackageCard).join('');
   $('#why').innerHTML = WHY.map(WhyItem).join('');
-  $('#price-blocks').innerHTML = PRICE_BLOCKS.map(PriceBlock).join('');
   $('#foot-services').innerHTML = SERVICES.map(function (s) {
     return '<li><a href="#svc-' + s.id + '" data-open-service="' + s.id + '">' + s.name + '</a></li>';
   }).join('');
